@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160">
+    <text xml:space="preserve" x="66.574" y="99.906" style="font-size:56px;font-family:&quot;Roboto Mono&quot;;-inkscape-font-specification:&quot;Roboto Mono, Normal&quot;;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#fff;stroke:#000;stroke-opacity:1;fill-opacity:1"><tspan x="66.574" y="99.906">1</tspan></text>
+    <circle cx="80" cy="80" r="69.75" style="fill:none;stroke:#fff;stroke-width:8;stroke-dasharray:none;stroke-opacity:1"/>
+    <circle cx="80" cy="80" r="73.25" style="fill:none;stroke:#000"/>
+    <circle cx="80" cy="80" r="65.25" style="fill:none;stroke:#000;stroke-width:1"/>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256">
+    <circle cx="128" cy="128" r="57" style="fill:none;fill-opacity:1;stroke:#00a;stroke-width:4;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"/>
+    <circle cx="128" cy="128" r="125" style="fill:none;stroke:#55f;stroke-width:6;stroke-opacity:1"/>
+    <path d="M144.785 128 127 138.268l-17.785 10.268v-41.072L127 117.732z" style="fill:none;fill-opacity:1;stroke:#55f;stroke-width:4.00003;stroke-dasharray:none;stroke-opacity:1"/>
+</svg>
