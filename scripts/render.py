@@ -11,6 +11,7 @@ LOG_LEVEL = logging.DEBUG
 BUILD_DIR = "build"
 RSVG_CONVERT_PATH = "rsvg-convert"
 MAGICK_PATH = "magick"
+CSS_PATH = "src/style.css"
 
 BLANK_IMG_PATH = f"{BUILD_DIR}/blank.png"
 BLANK_SPRITES = [
@@ -210,6 +211,8 @@ def render_svg(src: str, dst: str, width: int, height: int) -> int:
         str(width),
         "-h",
         str(height),
+        "-s",
+        CSS_PATH,
         "-o",
         dst,
         src,
