@@ -26,7 +26,7 @@ BLANK_SPRITES = [
     "sliderfollowcircle",
     "spinner-bottom",
     "spinner-glow",
-    "spinner-middle2",
+    "spinner-middle",
     "spinner-spin",
     "spinner-top",
     "star2",
@@ -55,6 +55,15 @@ DEFAULTX_HEIGHT = DEFAULTX_WIDTH
 
 SLIDERB_WIDTH = 256
 SLIDERB_HEIGHT = SLIDERB_WIDTH
+
+SPINNER_APPROACHCIRCLE_WIDTH = 384
+SPINNER_APPROACHCIRCLE_HEIGHT = SPINNER_APPROACHCIRCLE_WIDTH
+
+SPINNER_CLEAR_WIDTH = 169.344
+SPINNER_CLEAR_HEIGHT = 55.44
+
+SPINNER_MIDDLE2_WIDTH = 17
+SPINNER_MIDDLE2_HEIGHT = SPINNER_MIDDLE2_WIDTH
 
 logger = logging.getLogger(__name__)
 
@@ -169,7 +178,6 @@ def main():
             DEFAULTX_WIDTH,
             DEFAULTX_HEIGHT,
         )
-
         _ = render_svg(
             f"src/default-{x}.svg",
             f"{BUILD_DIR}/default-{x}@2x.png",
@@ -185,6 +193,45 @@ def main():
         f"{BUILD_DIR}/sliderb@2x.png",
         SLIDERB_WIDTH * 2,
         SLIDERB_HEIGHT * 2,
+    )
+
+    _ = render_svg(
+        "src/spinner-approachcircle.svg",
+        f"{BUILD_DIR}/spinner-approachcircle.png",
+        SPINNER_APPROACHCIRCLE_WIDTH,
+        SPINNER_APPROACHCIRCLE_HEIGHT,
+    )
+    _ = render_svg(
+        "src/spinner-approachcircle.svg",
+        f"{BUILD_DIR}/spinner-approachcircle@2x.png",
+        SPINNER_APPROACHCIRCLE_WIDTH * 2,
+        SPINNER_APPROACHCIRCLE_HEIGHT * 2,
+    )
+
+    _ = render_svg(
+        "src/spinner-clear.svg",
+        f"{BUILD_DIR}/spinner-clear.png",
+        SPINNER_CLEAR_WIDTH,
+        SPINNER_CLEAR_HEIGHT,
+    )
+    _ = render_svg(
+        "src/spinner-clear.svg",
+        f"{BUILD_DIR}/spinner-clear@2x.png",
+        SPINNER_CLEAR_WIDTH * 2,
+        SPINNER_CLEAR_HEIGHT * 2,
+    )
+
+    _ = render_svg(
+        "src/spinner-middle2.svg",
+        f"{BUILD_DIR}/spinner-middle2.png",
+        SPINNER_MIDDLE2_WIDTH,
+        SPINNER_MIDDLE2_HEIGHT,
+    )
+    _ = render_svg(
+        "src/spinner-middle2.svg",
+        f"{BUILD_DIR}/spinner-middle2@2x.png",
+        SPINNER_MIDDLE2_WIDTH * 2,
+        SPINNER_MIDDLE2_HEIGHT * 2,
     )
 
 
@@ -204,7 +251,7 @@ def create_blank_image(output: str) -> int:
     return proc.returncode
 
 
-def render_svg(src: str, dst: str, width: int, height: int) -> int:
+def render_svg(src: str, dst: str, width: float, height: float) -> int:
     cmd = [
         RSVG_CONVERT_PATH,
         "-w",
