@@ -1,69 +1,22 @@
 #!/usr/bin/env python3
 
+import argparse
 import logging
 import os
+from pathlib import PurePath
 import shutil
 import subprocess
 import sys
+import json
 
 LOG_LEVEL = logging.DEBUG
 
-BUILD_DIR = "build"
-RSVG_CONVERT_PATH = "rsvg-convert"
-MAGICK_PATH = "magick"
-CSS_PATH = "src/style.css"
-
-BLANK_IMG_PATH = f"{BUILD_DIR}/blank.png"
-BLANK_SPRITES = [
-    "cursortrail",
-    "followpoint-0",
-    "followpoint-2",
-    "hit300",
-    "hit300g",
-    "hit300k",
-    "lightning",
-    "sliderendcircle",
-    "sliderfollowcircle",
-    "spinner-bottom",
-    "spinner-glow",
-    "spinner-middle",
-    "spinner-spin",
-    "spinner-top",
-    "star2",
-]
-
-CURSOR_WIDTH = 36
-CURSOR_HEIGHT = CURSOR_WIDTH
-
-HITX_WIDTH = 24
-HITX_HEIGHT = HITX_WIDTH
-
-APPROACHCIRCLE_WIDTH = 126
-APPROACHCIRCLE_HEIGHT = APPROACHCIRCLE_WIDTH
-
-FOLLOWPOINT_WIDTH = 128
-FOLLOWPOINT_HEIGHT = 1
-
-HITCIRCLE_WIDTH = 128
-HITCIRCLE_HEIGHT = HITCIRCLE_WIDTH
-
-REVERSEARROW_WIDTH = 64
-REVERSEARROW_HEIGHT = REVERSEARROW_WIDTH
-
-DEFAULTX_WIDTH = 160
-DEFAULTX_HEIGHT = DEFAULTX_WIDTH
-
-SLIDERB_WIDTH = 256
-SLIDERB_HEIGHT = SLIDERB_WIDTH
-
-SPINNER_APPROACHCIRCLE_WIDTH = 384
-SPINNER_APPROACHCIRCLE_HEIGHT = SPINNER_APPROACHCIRCLE_WIDTH
-
-SPINNER_CLEAR_WIDTH = 169.344
-SPINNER_CLEAR_HEIGHT = 55.44
-
-SPINNER_MIDDLE2_WIDTH = 17
-SPINNER_MIDDLE2_HEIGHT = SPINNER_MIDDLE2_WIDTH
+DEFAULT_BUILD_DIR = "build"
+DEFAULT_CSS = "src/style.css"
+DEFAULT_SPEC = "specs/myflavor.json"
+DEFAULT_HD_MULTIPLIER = 2
+DEFAULT_RSVG_CONVERT = "rsvg-convert"
+DEFAULT_MAGICK = "magick"
 
 logger = logging.getLogger(__name__)
 
@@ -71,173 +24,95 @@ logger = logging.getLogger(__name__)
 def main():
     logging.basicConfig(level=LOG_LEVEL)
 
+    args = parse_args()
+
     try:
-        os.mkdir(BUILD_DIR)
+        os.mkdir(args.build_dir)
     except FileExistsError:
         pass
     except Exception as err:
-        logging.critical(f"Failed to create {BUILD_DIR}: {err}")
+        logging.critical(f"Failed to create {args.build_dir}: {err}")
         return 1
 
-    retcode = create_blank_image(BLANK_IMG_PATH)
+    blank_image_path = PurePath(args.build_dir).joinpath("blank.png")
+    retcode = create_blank_image(args.magick, str(blank_image_path))
     if retcode != 0:
         return 1
 
-    for e in BLANK_SPRITES:
-        dst = f"{BUILD_DIR}/{e}.png"
-        shutil.copy(BLANK_IMG_PATH, dst)
+    with open(args.spec) as f:
+        spec = json.load(f)
 
-    os.remove(BLANK_IMG_PATH)
+    for sprite in spec["sprites"]:
+        dst = PurePath(args.build_dir).joinpath(sprite["name"])
+        dst_hd = dst.with_stem(f"{dst.stem}@2x")
 
-    _ = render_svg(
-        "src/cursor.svg", f"{BUILD_DIR}/cursor.png", CURSOR_WIDTH, CURSOR_HEIGHT
-    )
-    _ = render_svg(
-        "src/cursor.svg",
-        f"{BUILD_DIR}/cursor@2x.png",
-        CURSOR_WIDTH * 2,
-        CURSOR_HEIGHT * 2,
-    )
+        if "blank" in sprite and sprite["blank"]:
+            logger.debug(f"Copying {blank_image_path} to {dst}.")
+            shutil.copy(blank_image_path, dst)
+            continue
 
-    _ = render_svg("src/hit0.svg", f"{BUILD_DIR}/hit0.png", HITX_WIDTH, HITX_HEIGHT)
-    _ = render_svg(
-        "src/hit0.svg", f"{BUILD_DIR}/hit0@2x.png", HITX_WIDTH * 2, HITX_HEIGHT * 2
-    )
+        height = sprite["height"] if "height" in sprite else sprite["width"]
 
-    _ = render_svg("src/hit100.svg", f"{BUILD_DIR}/hit100.png", HITX_WIDTH, HITX_HEIGHT)
-    _ = render_svg(
-        "src/hit100.svg", f"{BUILD_DIR}/hit100@2x.png", HITX_WIDTH * 2, HITX_HEIGHT * 2
-    )
-    shutil.copy(f"{BUILD_DIR}/hit100.png", f"{BUILD_DIR}/hit100k.png")
-    shutil.copy(f"{BUILD_DIR}/hit100@2x.png", f"{BUILD_DIR}/hit100k@2x.png")
-
-    _ = render_svg("src/hit50.svg", f"{BUILD_DIR}/hit50.png", HITX_WIDTH, HITX_HEIGHT)
-    _ = render_svg(
-        "src/hit50.svg", f"{BUILD_DIR}/hit50@2x.png", HITX_WIDTH * 2, HITX_HEIGHT * 2
-    )
-
-    _ = render_svg(
-        "src/approachcircle.svg",
-        f"{BUILD_DIR}/approachcircle.png",
-        APPROACHCIRCLE_WIDTH,
-        APPROACHCIRCLE_HEIGHT,
-    )
-    _ = render_svg(
-        "src/approachcircle.svg",
-        f"{BUILD_DIR}/approachcircle@2x.png",
-        APPROACHCIRCLE_WIDTH * 2,
-        APPROACHCIRCLE_HEIGHT * 2,
-    )
-
-    _ = render_svg(
-        "src/hitcircle.svg",
-        f"{BUILD_DIR}/hitcircle.png",
-        HITCIRCLE_WIDTH,
-        HITCIRCLE_HEIGHT,
-    )
-    _ = render_svg(
-        "src/hitcircle.svg",
-        f"{BUILD_DIR}/hitcircle@2x.png",
-        HITCIRCLE_WIDTH * 2,
-        HITCIRCLE_HEIGHT * 2,
-    )
-
-    shutil.copy(f"{BUILD_DIR}/hitcircle.png", f"{BUILD_DIR}/hitcircleoverlay.png")
-    shutil.copy(f"{BUILD_DIR}/hitcircle@2x.png", f"{BUILD_DIR}/hitcircleoverlay@2x.png")
-
-    _ = render_svg(
-        "src/followpoint.svg",
-        f"{BUILD_DIR}/followpoint-1.png",
-        FOLLOWPOINT_WIDTH,
-        FOLLOWPOINT_HEIGHT,
-    )
-    _ = render_svg(
-        "src/followpoint.svg",
-        f"{BUILD_DIR}/followpoint-1@2x.png",
-        FOLLOWPOINT_WIDTH * 2,
-        FOLLOWPOINT_HEIGHT * 2,
-    )
-
-    _ = render_svg(
-        "src/reversearrow.svg",
-        f"{BUILD_DIR}/reversearrow.png",
-        REVERSEARROW_WIDTH,
-        REVERSEARROW_HEIGHT,
-    )
-    _ = render_svg(
-        "src/reversearrow.svg",
-        f"{BUILD_DIR}/reversearrow@2x.png",
-        REVERSEARROW_WIDTH * 2,
-        REVERSEARROW_HEIGHT * 2,
-    )
-
-    for x in range(10):
-        _ = render_svg(
-            f"src/default-{x}.svg",
-            f"{BUILD_DIR}/default-{x}.png",
-            DEFAULTX_WIDTH,
-            DEFAULTX_HEIGHT,
+        retcode = render_svg(
+            args.rsvg_convert, sprite["src"], str(dst), sprite["width"], height
         )
-        _ = render_svg(
-            f"src/default-{x}.svg",
-            f"{BUILD_DIR}/default-{x}@2x.png",
-            DEFAULTX_WIDTH * 2,
-            DEFAULTX_HEIGHT * 2,
+        if retcode != 0:
+            logger.warning(f"Non-zero return code: {retcode}.")
+        retcode = render_svg(
+            args.rsvg_convert,
+            sprite["src"],
+            str(dst_hd),
+            sprite["width"] * args.hd_multiplier,
+            height * args.hd_multiplier,
         )
+        if retcode != 0:
+            logger.warning(f"Non-zero return code: {retcode}.")
 
-    _ = render_svg(
-        "src/sliderb.svg", f"{BUILD_DIR}/sliderb.png", SLIDERB_WIDTH, SLIDERB_HEIGHT
-    )
-    _ = render_svg(
-        "src/sliderb.svg",
-        f"{BUILD_DIR}/sliderb@2x.png",
-        SLIDERB_WIDTH * 2,
-        SLIDERB_HEIGHT * 2,
-    )
-
-    _ = render_svg(
-        "src/spinner-approachcircle.svg",
-        f"{BUILD_DIR}/spinner-approachcircle.png",
-        SPINNER_APPROACHCIRCLE_WIDTH,
-        SPINNER_APPROACHCIRCLE_HEIGHT,
-    )
-    _ = render_svg(
-        "src/spinner-approachcircle.svg",
-        f"{BUILD_DIR}/spinner-approachcircle@2x.png",
-        SPINNER_APPROACHCIRCLE_WIDTH * 2,
-        SPINNER_APPROACHCIRCLE_HEIGHT * 2,
-    )
-
-    _ = render_svg(
-        "src/spinner-clear.svg",
-        f"{BUILD_DIR}/spinner-clear.png",
-        SPINNER_CLEAR_WIDTH,
-        SPINNER_CLEAR_HEIGHT,
-    )
-    _ = render_svg(
-        "src/spinner-clear.svg",
-        f"{BUILD_DIR}/spinner-clear@2x.png",
-        SPINNER_CLEAR_WIDTH * 2,
-        SPINNER_CLEAR_HEIGHT * 2,
-    )
-
-    _ = render_svg(
-        "src/spinner-middle2.svg",
-        f"{BUILD_DIR}/spinner-middle2.png",
-        SPINNER_MIDDLE2_WIDTH,
-        SPINNER_MIDDLE2_HEIGHT,
-    )
-    _ = render_svg(
-        "src/spinner-middle2.svg",
-        f"{BUILD_DIR}/spinner-middle2@2x.png",
-        SPINNER_MIDDLE2_WIDTH * 2,
-        SPINNER_MIDDLE2_HEIGHT * 2,
-    )
+    os.remove(blank_image_path)
 
 
-def create_blank_image(output: str) -> int:
+def parse_args():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+
+    _ = parser.add_argument(
+        "--build-dir", default=DEFAULT_BUILD_DIR, help="build directory", metavar="PATH"
+    )
+
+    _ = parser.add_argument(
+        "--css", default=DEFAULT_CSS, help="path to css", metavar="PATH"
+    )
+
+    _ = parser.add_argument(
+        "--spec", default=DEFAULT_SPEC, help="path to spec", metavar="PATH"
+    )
+
+    _ = parser.add_argument(
+        "--hd-multiplier",
+        default=DEFAULT_HD_MULTIPLIER,
+        type=float,
+        help="hd multiplier",
+        metavar="NUM",
+    )
+
+    _ = parser.add_argument(
+        "--rsvg-convert",
+        default=DEFAULT_RSVG_CONVERT,
+        help="path to rsvg-convert",
+        metavar="PATH",
+    )
+
+    _ = parser.add_argument(
+        "--magick", default=DEFAULT_MAGICK, help="path to magick", metavar="PATH"
+    )
+
+    return parser.parse_args()
+
+
+def create_blank_image(magick: str, output: str) -> int:
     cmd = [
-        MAGICK_PATH,
+        magick,
         "-size",
         "1x1",
         "xc:transparent",
@@ -251,15 +126,17 @@ def create_blank_image(output: str) -> int:
     return proc.returncode
 
 
-def render_svg(src: str, dst: str, width: float, height: float) -> int:
+def render_svg(
+    rsvg_convert: str, src: str, dst: str, width: float, height: float
+) -> int:
     cmd = [
-        RSVG_CONVERT_PATH,
+        rsvg_convert,
         "-w",
         str(width),
         "-h",
         str(height),
         "-s",
-        CSS_PATH,
+        DEFAULT_CSS,
         "-o",
         dst,
         src,
