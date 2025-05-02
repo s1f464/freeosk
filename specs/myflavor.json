@@ -170,6 +170,11 @@
       "blank": true
     },
     {
+      "name": "spinner-approachcircle.png",
+      "src": "src/spinner-approachcircle.svg",
+      "width": 384
+    },
+    {
       "name": "spinner-clear.png",
       "src": "src/spinner-clear.svg",
       "width": 169.344,
