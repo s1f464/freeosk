@@ -9,11 +9,16 @@
     {
       "name": "cursor.png",
       "src": "src/cursor.svg",
-      "width": 36
+      "width": 42
     },
     {
       "name": "cursortrail.png",
       "blank": true
+    },
+    {
+      "name": "cursormiddle.png",
+      "src": "src/cursormiddle.svg",
+      "width": 8
     },
     {
       "name": "hit0.png",
