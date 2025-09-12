@@ -13,7 +13,7 @@ LOG_LEVEL = logging.DEBUG
 
 DEFAULT_BUILD_DIR = "build"
 DEFAULT_CSS = "src/style.css"
-DEFAULT_SPEC = "specs/myflavor.json"
+DEFAULT_SPEC = "specs/triple_stacked.json"
 DEFAULT_HD_MULTIPLIER = 2
 DEFAULT_RSVG_CONVERT = "rsvg-convert"
 DEFAULT_MAGICK = "magick"
