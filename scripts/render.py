@@ -12,7 +12,6 @@ import json
 LOG_LEVEL = logging.DEBUG
 
 DEFAULT_BUILD_DIR = "build"
-DEFAULT_CSS = "src/style.css"
 DEFAULT_SPEC = "specs/triple_stacked.json"
 DEFAULT_HD_MULTIPLIER = 2
 DEFAULT_RSVG_CONVERT = "rsvg-convert"
@@ -81,10 +80,6 @@ def parse_args():
     )
 
     _ = parser.add_argument(
-        "--css", default=DEFAULT_CSS, help="path to css", metavar="PATH"
-    )
-
-    _ = parser.add_argument(
         "--spec", default=DEFAULT_SPEC, help="path to spec", metavar="PATH"
     )
 
@@ -135,8 +130,6 @@ def render_svg(
         str(width),
         "-h",
         str(height),
-        "-s",
-        DEFAULT_CSS,
         "-o",
         dst,
         src,
