@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160">
     <text xml:space="preserve" x="63.566" y="99.906" style="font-size:56px;font-family:&quot;Roboto Mono&quot;;-inkscape-font-specification:&quot;Roboto Mono, Normal&quot;;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#fff;fill-opacity:1;stroke:#000;stroke-opacity:1"><tspan x="63.566" y="99.906">4</tspan></text>
-    <circle cx="80" cy="80" r="69.75" style="fill:none;stroke:#fff;stroke-width:8;stroke-dasharray:none;stroke-opacity:1"/>
-    <circle cx="80" cy="80" r="73.25" style="fill:none;stroke:#000"/>
-    <circle cx="80" cy="80" r="65.25" style="fill:none;stroke:#000;stroke-width:1"/>
+    <circle cx="80" cy="80" r="68.75" style="fill:none;fill-opacity:1;stroke:#fff;stroke-width:10;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"/>
+    <circle cx="80" cy="80" r="74.375" style="fill:none;fill-opacity:1;stroke:#000;stroke-width:1.25;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"/>
+    <circle cx="80" cy="80" r="63.125" style="fill:none;fill-opacity:1;stroke:#000;stroke-width:1.25;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"/>
 </svg>
