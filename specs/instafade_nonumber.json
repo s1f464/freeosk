@@ -180,8 +180,8 @@
     {
       "name": "spinner-clear.png",
       "src": "src/spinner-clear.svg",
-      "width": 169.344,
-      "height": 55.44
+      "width": 191,
+      "height": 57
     },
     {
       "name": "spinner-spin.png",
