@@ -2,9 +2,11 @@
 
 import argparse
 import configparser
+import io
 import subprocess
 import sys
 
+DEFAULT_NAME = "freeosk"
 DEFAULT_AUTHOR = "Unknown"
 DEFAULT_GIT = "git"
 DEFAULT_INPUT = "src/skin.ini"
@@ -22,11 +24,14 @@ def main():
 
     with open(args.input, "r") as f:
         config.read_file(f)
-        config["General"]["Name"] += f" ({commit_hash} {commit_date})"
+        config["General"]["Name"] = f"{args.name} ({commit_hash} {commit_date})"
         config["General"]["Author"] = args.author
 
+    buf = io.StringIO()
+    config.write(buf)
+    s = buf.getvalue().rstrip("\n")
     with open(args.output, "w") as f:
-        config.write(f)
+        f.write(s)
 
 
 def get_latest_commit_hash(git: str) -> str:
@@ -48,6 +53,10 @@ def get_latest_commit_date(git: str) -> str:
 def parse_args():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+
+    _ = parser.add_argument(
+        "--name", default=DEFAULT_NAME, help="set name", metavar="NAME"
     )
 
     _ = parser.add_argument(
