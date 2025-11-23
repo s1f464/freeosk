@@ -3,79 +3,6 @@
   "version": 1,
   "sprites": [
     {
-      "name": "star2.png",
-      "blank": true
-    },
-    {
-      "name": "cursor.png",
-      "src": "src/cursor.svg",
-      "width": 42
-    },
-    {
-      "name": "cursortrail.png",
-      "blank": true
-    },
-    {
-      "name": "cursormiddle.png",
-      "src": "src/cursormiddle.svg",
-      "width": 8
-    },
-    {
-      "name": "hit0.png",
-      "src": "src/hit0.svg",
-      "width": 24
-    },
-    {
-      "name": "hit50.png",
-      "src": "src/hit50.svg",
-      "width": 24
-    },
-    {
-      "name": "hit100.png",
-      "src": "src/hit100.svg",
-      "width": 24
-    },
-    {
-      "name": "hit100k.png",
-      "src": "src/hit100.svg",
-      "width": 24
-    },
-    {
-      "name": "hit300.png",
-      "blank": true
-    },
-    {
-      "name": "hit300g.png",
-      "blank": true
-    },
-    {
-      "name": "hit300k.png",
-      "blank": true
-    },
-    {
-      "name": "lightning.png",
-      "blank": true
-    },
-    {
-      "name": "approachcircle.png",
-      "src": "src/approachcircle.svg",
-      "width": 126
-    },
-    {
-      "name": "followpoint-0.png",
-      "blank": true
-    },
-    {
-      "name": "followpoint-1.png",
-      "src": "src/followpoint.svg",
-      "width": 128,
-      "height": 1
-    },
-    {
-      "name": "followpoint-2.png",
-      "blank": true
-    },
-    {
       "name": "hitcircle.png",
       "src": "src/hitcircle.svg",
       "width": 128
@@ -84,24 +11,6 @@
       "name": "hitcircleoverlay.png",
       "src": "src/hitcircle.svg",
       "width": 128
-    },
-    {
-      "name": "reversearrow.png",
-      "src": "src/reversearrow.svg",
-      "width": 64
-    },
-    {
-      "name": "sliderendcircle.png",
-      "blank": true
-    },
-    {
-      "name": "sliderb.png",
-      "src": "src/sliderb.svg",
-      "width": 118
-    },
-    {
-      "name": "sliderfollowcircle.png",
-      "blank": true
     },
     {
       "name": "default-0.png",
@@ -152,42 +61,6 @@
       "name": "default-9.png",
       "src": "src/default-0.svg",
       "width": 160
-    },
-    {
-      "name": "spinner-bottom.png",
-      "blank": true
-    },
-    {
-      "name": "spinner-glow.png",
-      "blank": true
-    },
-    {
-      "name": "spinner-middle.png",
-      "blank": true
-    },
-    {
-      "name": "spinner-middle2.png",
-      "src": "src/spinner-middle2.svg",
-      "width": 17
-    },
-    {
-      "name": "spinner-top.png",
-      "blank": true
-    },
-    {
-      "name": "spinner-approachcircle.png",
-      "src": "src/spinner-approachcircle.svg",
-      "width": 384
-    },
-    {
-      "name": "spinner-clear.png",
-      "src": "src/spinner-clear.svg",
-      "width": 191,
-      "height": 57
-    },
-    {
-      "name": "spinner-spin.png",
-      "blank": true
     }
   ]
 }
