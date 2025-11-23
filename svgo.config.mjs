@@ -4,6 +4,9 @@ export default {
 			name: 'preset-default',
 			params: {
 				overrides: {
+					cleanupIds: {
+						minify: false,
+					},
 					convertShapeToPath: false,
 				},
 			},
