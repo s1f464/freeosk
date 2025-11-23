@@ -12,7 +12,6 @@ import json
 LOG_LEVEL = logging.DEBUG
 
 DEFAULT_BUILD_DIR = "build"
-DEFAULT_SPEC = "specs/triple_stacked.json"
 DEFAULT_HD_MULTIPLIER = 2
 DEFAULT_RSVG_CONVERT = "rsvg-convert"
 DEFAULT_MAGICK = "magick"
@@ -80,10 +79,6 @@ def parse_args():
     )
 
     _ = parser.add_argument(
-        "--spec", default=DEFAULT_SPEC, help="path to spec", metavar="PATH"
-    )
-
-    _ = parser.add_argument(
         "--hd-multiplier",
         default=DEFAULT_HD_MULTIPLIER,
         type=float,
@@ -101,6 +96,8 @@ def parse_args():
     _ = parser.add_argument(
         "--magick", default=DEFAULT_MAGICK, help="path to magick", metavar="PATH"
     )
+
+    _ = parser.add_argument("spec", help="path to spec", metavar="PATH")
 
     return parser.parse_args()
 
