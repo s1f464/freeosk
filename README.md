@@ -1,44 +1,34 @@
 # freeosk
 
-Minimalist [osu!](https://osu.ppy.sh/) skin assets focusing on osu gameplay.
-
-## Features
-
-- Minimalist design
-- "Triple stacked" (hitcircle + hitcircleoverlay + default-x)
-- SVG source
-- Free as in freedom
+Minimalist [osu!](https://osu.ppy.sh/) skin assets.
 
 ## Developing
 
-SVG files are created in Inkscape then optimized using
-[SVGO](https://github.com/svg/svgo). Refer to
+SVG files are optimized using [SVGO](https://github.com/svg/svgo). Refer to
 [Skin set list for the ranking criteria](https://osu.ppy.sh/wiki/en/Ranking_criteria/Skin_set_list)
 as a general skinning guideline.
 
 To optimize SVG:
 
-    svgo --pretty --folder src
+    make format-svg
 
 ## Building
 
-To build a complete .osk file:
+Before building, ensure the following executables are available in `PATH`:
 
-1. Render SVG to formats supported by osu!.
-2. Create configuration files.
-3. Get additional assets.
-4. Archive
+- magick
+- python
+- rsvg-convert
 
-[scripts/render.py](scripts/render.py) can be used for step 1. The following
-executables are required to run the script.
+Build all variants:
 
-- rsvg-convert: render SVG
-- magick: create a 1x1 transparent PNG
+    make
 
-[scripts/gen_skinini.py](scripts/gen_skinini.py) can be used for step 2.
+Build a specific variant (e.g. `instafade`):
 
-For additional assets, a good starting point is
-[osu-resources](https://github.com/ppy/osu-resources) (CC-BY-NC 4.0).
+    make instafade
+
+Variant definitions can be found in the [specs/](specs) directory.
 
 ## License
 
