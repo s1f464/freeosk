@@ -85,6 +85,11 @@
       "blank": true
     },
     {
+      "name": "sliderendmiss.png",
+      "src": "src/sliderendmiss.svg",
+      "width": 12
+    },
+    {
       "name": "sliderb.png",
       "src": "src/sliderb.svg",
       "width": 118
@@ -92,6 +97,16 @@
     {
       "name": "sliderfollowcircle.png",
       "blank": true
+    },
+    {
+      "name": "sliderscorepoint.png",
+      "src": "src/sliderscorepoint.svg",
+      "width": 12
+    },
+    {
+      "name": "slidertickmiss.png",
+      "src": "src/slidertickmiss.svg",
+      "width": 12
     },
     {
       "name": "spinner-bottom.png",
