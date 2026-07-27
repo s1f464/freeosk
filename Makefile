@@ -1,5 +1,5 @@
 BUILD_DIR ?= build
-SPECS := triple_stacked triple_stacked_nonumber instafade instafade_nonumber
+SPECS := triple_stacked triple_stacked_nonumber
 AUTHOR := s1f464
 
 .PHONY: all

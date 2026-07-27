@@ -24,9 +24,9 @@ Build all variants:
 
     make
 
-Build a specific variant (e.g. `instafade`):
+Build a specific variant (e.g. `triple_stacked`):
 
-    make instafade
+    make triple_stacked
 
 Variant definitions can be found in the [specs/](specs) directory.
 
