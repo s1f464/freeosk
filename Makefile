@@ -22,7 +22,7 @@ audio: $(OSU_RESOURCES_ARCHIVE)
 	tar -xzf $(OSU_RESOURCES_ARCHIVE) \
 		-C $(BUILD_DIR)/audio \
 		--wildcards \
-		--strip-components=5 \
+		--strip-components=4 \
 		"osu-resources-$(OSU_RESOURCES_TAG)/osu.Game.Resources/Samples/Gameplay/Argon/*" \
 		"osu-resources-$(OSU_RESOURCES_TAG)/osu.Game.Resources/Samples/Gameplay/normal-*.wav" \
 		"osu-resources-$(OSU_RESOURCES_TAG)/osu.Game.Resources/Samples/Gameplay/drum-*.wav" \
@@ -35,7 +35,11 @@ $(SPECS): %: base audio
 	./scripts/render.py --build-dir $(BUILD_DIR)/$* ./specs/$*.json
 	./scripts/gen_skinini.py --name "freeosk $*" --author "$(AUTHOR)" -o $(BUILD_DIR)/$*/skin.ini
 	cp ./src/MainHUDComponents.json $(BUILD_DIR)/$*
-	cp $(BUILD_DIR)/audio/* $(BUILD_DIR)/$*
+	cp $(BUILD_DIR)/audio/Argon/* $(BUILD_DIR)/$*
+	cp $(BUILD_DIR)/audio/normal-*.wav \
+		$(BUILD_DIR)/audio/drum-*.wav \
+		$(BUILD_DIR)/audio/soft-*.wav \
+		$(BUILD_DIR)/$*
 	bsdtar -c -a --no-acls --no-fflags --no-xattrs --numeric-owner \
 		--options zip:compression=store \
 		--strip-components 1 \
