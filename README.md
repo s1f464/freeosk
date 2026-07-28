@@ -4,21 +4,28 @@ Minimalist [osu!](https://osu.ppy.sh/) skin assets.
 
 ## Developing
 
-SVG files are optimized using [SVGO](https://github.com/svg/svgo). Refer to
+Refer to
 [Skin set list for the ranking criteria](https://osu.ppy.sh/wiki/en/Ranking_criteria/Skin_set_list)
 as a general skinning guideline.
 
-To optimize SVG:
+SVG files are optimized using [SVGO](https://github.com/svg/svgo):
 
     make format-svg
 
 ## Building
 
+A [Makefile](Makefile) is provided for building `.osk`. It automatically
+downloads hitsounds from [osu-resources](https://github.com/ppy/osu-resources)
+([CC-BY-NC-4.0](https://raw.githubusercontent.com/ppy/osu-resources/refs/heads/master/LICENCE.md)).
+
 Before building, ensure the following executables are available in `PATH`:
 
+- bsdtar
+- curl
 - magick
 - python
 - rsvg-convert
+- tar
 
 Build all variants:
 
