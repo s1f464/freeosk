@@ -16,6 +16,7 @@ DEFAULT_OUTPUT = "build/skin.ini"
 def main():
     args = parse_args()
 
+    tag = get_tag(args.git)
     commit_hash = get_latest_commit_hash(args.git)
     commit_date = get_latest_commit_date(args.git)
 
@@ -24,7 +25,7 @@ def main():
 
     with open(args.input, "r") as f:
         config.read_file(f)
-        config["General"]["Name"] = f"{args.name} ({commit_hash} {commit_date})"
+        config["General"]["Name"] = f"{args.name} {tag} ({commit_hash} {commit_date})"
         config["General"]["Author"] = args.author
 
     buf = io.StringIO()
@@ -32,6 +33,14 @@ def main():
     s = buf.getvalue().rstrip("\n")
     with open(args.output, "w") as f:
         f.write(s)
+
+
+def get_tag(git: str) -> str:
+    cmd = [git, "describe", "--tags", "--exact-match"]
+    proc = subprocess.run(cmd, capture_output=True, text=True)
+    if proc.returncode != 0:
+        return "dev"
+    return proc.stdout.strip().lstrip("v")
 
 
 def get_latest_commit_hash(git: str) -> str:
