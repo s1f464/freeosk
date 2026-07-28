@@ -54,7 +54,7 @@ format-svg:
 
 .PHONY: clean-audio
 clean-audio:
-	rm -rf $(BUILD_DIR)/audio $(OSU_RESOURCES_ARCHIVE)
+	rm -rf $(BUILD_DIR)/audio
 
 .PHONY: clean-sprites
 clean-sprites:
