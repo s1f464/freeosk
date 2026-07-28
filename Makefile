@@ -7,13 +7,13 @@ all: base $(SPECS)
 
 .PHONY: base
 base:
-	mkdir -p $(BUILD_DIR)
-	./scripts/render.py --build-dir ${BUILD_DIR} ./specs/base.json
+	mkdir -p $(BUILD_DIR)/base
+	./scripts/render.py --build-dir ${BUILD_DIR}/base ./specs/base.json
 
 .PHONY: $(SPECS)
 $(SPECS): %: base
 	mkdir -p $(BUILD_DIR)/$*
-	cp $(BUILD_DIR)/*.png $(BUILD_DIR)/$*
+	cp $(BUILD_DIR)/base/*.png $(BUILD_DIR)/$*
 	./scripts/render.py --build-dir $(BUILD_DIR)/$* ./specs/$*.json
 	./scripts/gen_skinini.py --name "freeosk $*" --author $(AUTHOR) -o $(BUILD_DIR)/$*/skin.ini
 	cp ./src/MainHUDComponents.json $(BUILD_DIR)/$*
