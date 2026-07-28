@@ -1,6 +1,6 @@
 BUILD_DIR ?= build
 SPECS := triple_stacked triple_stacked_nonumber
-AUTHOR := s1f464
+AUTHOR := s1f464, team osu!
 OSU_RESOURCES_TAG ?= 2026.710.0
 OSU_RESOURCES_ARCHIVE := $(BUILD_DIR)/osu-resources-$(OSU_RESOURCES_TAG).tar.gz
 
@@ -33,7 +33,7 @@ $(SPECS): %: base audio
 	mkdir -p $(BUILD_DIR)/$*
 	cp $(BUILD_DIR)/base/*.png $(BUILD_DIR)/$*
 	./scripts/render.py --build-dir $(BUILD_DIR)/$* ./specs/$*.json
-	./scripts/gen_skinini.py --name "freeosk $*" --author $(AUTHOR) -o $(BUILD_DIR)/$*/skin.ini
+	./scripts/gen_skinini.py --name "freeosk $*" --author "$(AUTHOR)" -o $(BUILD_DIR)/$*/skin.ini
 	cp ./src/MainHUDComponents.json $(BUILD_DIR)/$*
 	cp $(BUILD_DIR)/audio/* $(BUILD_DIR)/$*
 	bsdtar -c -a --no-acls --no-fflags --no-xattrs --numeric-owner \
