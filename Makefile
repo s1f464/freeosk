@@ -1,7 +1,7 @@
 BUILD_DIR ?= build
 SPECS := triple_stacked triple_stacked_nonumber
 AUTHOR := s1f464, team osu!
-OSU_RESOURCES_TAG ?= 2026.710.0
+OSU_RESOURCES_TAG ?= 2026.1008.0
 OSU_RESOURCES_ARCHIVE := $(BUILD_DIR)/osu-resources-$(OSU_RESOURCES_TAG).tar.gz
 
 .PHONY: all
