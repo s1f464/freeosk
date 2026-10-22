@@ -23,10 +23,29 @@ audio: $(OSU_RESOURCES_ARCHIVE)
 		-C $(BUILD_DIR)/audio \
 		--wildcards \
 		--strip-components=4 \
-		"osu-resources-$(OSU_RESOURCES_TAG)/osu.Game.Resources/Samples/Gameplay/Argon/*" \
-		"osu-resources-$(OSU_RESOURCES_TAG)/osu.Game.Resources/Samples/Gameplay/normal-*.wav" \
-		"osu-resources-$(OSU_RESOURCES_TAG)/osu.Game.Resources/Samples/Gameplay/drum-*.wav" \
-		"osu-resources-$(OSU_RESOURCES_TAG)/osu.Game.Resources/Samples/Gameplay/soft-*.wav"
+		"osu-resources-$(OSU_RESOURCES_TAG)/osu.Game.Resources/Samples/Gameplay"
+
+	# ArgonPro > Argon > root
+	cd $(BUILD_DIR)/audio && \
+	for d in Argon ArgonPro; do \
+		[ -d "$$d" ] || continue; \
+		for f in "$$d"/*; do \
+			[ -f "$$f" ] || continue; \
+			base="$${f##*/}"; \
+			stem="$${base%.*}"; \
+			rm -f ./$${stem}.*; \
+			cp "$$f" .; \
+		done; \
+		rm -r "$$d"; \
+	done
+
+	# Use normal-hitnormal across variations for consistency.
+	cd $(BUILD_DIR)/audio && \
+	for i in normal drum soft; do \
+		for j in hitnormal hitclap hitfinish hitwhistle; do \
+			cp -f "normal-hitnormal.wav" "$$i-$$j.wav"; \
+		done; \
+	done
 
 .PHONY: $(SPECS)
 $(SPECS): %: base audio
@@ -35,11 +54,7 @@ $(SPECS): %: base audio
 	./scripts/render.py --build-dir $(BUILD_DIR)/$* ./specs/$*.json
 	./scripts/gen_skinini.py --name "freeosk $*" --author "$(AUTHOR)" -o $(BUILD_DIR)/$*/skin.ini
 	cp ./src/MainHUDComponents.json $(BUILD_DIR)/$*
-	cp $(BUILD_DIR)/audio/Argon/* $(BUILD_DIR)/$*
-	cp $(BUILD_DIR)/audio/normal-*.wav \
-		$(BUILD_DIR)/audio/drum-*.wav \
-		$(BUILD_DIR)/audio/soft-*.wav \
-		$(BUILD_DIR)/$*
+	cp $(BUILD_DIR)/audio/* $(BUILD_DIR)/$*
 	bsdtar -c -a --no-acls --no-fflags --no-xattrs --numeric-owner \
 		--options zip:compression=store \
 		--strip-components 1 \
