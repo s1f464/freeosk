@@ -142,6 +142,96 @@
     {
       "name": "spinner-spin.png",
       "blank": true
+    },
+    {
+      "name": "score-0.png",
+      "src": "src/score-0.svg",
+      "width": 29,
+      "height": 46
+    },
+    {
+      "name": "score-1.png",
+      "src": "src/score-1.svg",
+      "width": 16,
+      "height": 46
+    },
+    {
+      "name": "score-2.png",
+      "src": "src/score-2.svg",
+      "width": 29,
+      "height": 46
+    },
+    {
+      "name": "score-3.png",
+      "src": "src/score-3.svg",
+      "width": 30,
+      "height": 47
+    },
+    {
+      "name": "score-4.png",
+      "src": "src/score-4.svg",
+      "width": 36,
+      "height": 46
+    },
+    {
+      "name": "score-5.png",
+      "src": "src/score-5.svg",
+      "width": 31,
+      "height": 46
+    },
+    {
+      "name": "score-6.png",
+      "src": "src/score-6.svg",
+      "width": 29,
+      "height": 46
+    },
+    {
+      "name": "score-7.png",
+      "src": "src/score-7.svg",
+      "width": 30,
+      "height": 46
+    },
+    {
+      "name": "score-8.png",
+      "src": "src/score-8.svg",
+      "width": 29,
+      "height": 47
+    },
+    {
+      "name": "score-9.png",
+      "src": "src/score-9.svg",
+      "width": 29,
+      "height": 46
+    },
+    {
+      "name": "score-comma.png",
+      "src": "src/score-comma.svg",
+      "width": 10,
+      "height": 56
+    },
+    {
+      "name": "score-dot.png",
+      "src": "src/score-dot.svg",
+      "width": 9,
+      "height": 47
+    },
+    {
+      "name": "score-percent.png",
+      "src": "src/score-percent.svg",
+      "width": 47,
+      "height": 46
+    },
+    {
+      "name": "score-pp.png",
+      "src": "src/score-pp.svg",
+      "width": 73,
+      "height": 59
+    },
+    {
+      "name": "score-x.png",
+      "src": "src/score-x.svg",
+      "width": 29,
+      "height": 47
     }
   ]
 }
