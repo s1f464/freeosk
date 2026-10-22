@@ -135,9 +135,12 @@
       "width": 384
     },
     {
+      "name": "spinner-rpm.png",
+      "blank": true
+    },
+    {
       "name": "spinner-clear.png",
-      "src": "src/spinner-clear.svg",
-      "width": 72
+      "blank": true
     },
     {
       "name": "spinner-spin.png",
